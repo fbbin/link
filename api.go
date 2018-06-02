@@ -20,6 +20,7 @@ func (pf ProtocolFunc) NewCodec(rw io.ReadWriter) (Codec, error) {
 type Codec interface {
 	Receive() (interface{}, error)
 	Send(interface{}) error
+	ClientAddr() string
 	Close() error
 }
 
