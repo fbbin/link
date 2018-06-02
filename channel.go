@@ -34,6 +34,16 @@ func (channel *Channel) Fetch(callback func(*Session)) {
 	}
 }
 
+func (channel *Channel) Rand(callback func(*Session)) {
+	channel.mutex.RLock()
+	defer channel.mutex.RUnlock()
+	for _, session := range channel.sessions {
+		callback(session)
+		break
+	}
+	return
+}
+
 func (channel *Channel) Get(key KEY) *Session {
 	channel.mutex.RLock()
 	defer channel.mutex.RUnlock()
